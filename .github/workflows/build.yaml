@@ -30,5 +30,8 @@ jobs:
       - name: install cdk
         run: npm install -g aws-cdk
 
+      - name: cdk bootstrap
+        run: cdk bootstrap
+
       - name: cdk deploy
         run: cdk deploy --require-approval never
