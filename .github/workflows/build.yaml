@@ -25,7 +25,7 @@ jobs:
         run: ./resources/gradlew buildNativeLambda -p resources
 
       - name: cdk deploy
-        uses: youyo/aws-cdk-github-actions@v2
+        uses: parameswaranvv/aws-java-cdk-github-actions@v1
         with:
           cdk_subcommand: 'deploy'
           cdk_stack: 'stack1'
