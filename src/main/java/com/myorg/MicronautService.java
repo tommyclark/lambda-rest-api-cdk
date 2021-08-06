@@ -50,6 +50,6 @@ public class MicronautService extends Construct {
                     put("application/json", "{ \"statusCode\": \"200\" }");
                 }}).build();
 
-        api.getRoot().addMethod("ANY", getWidgetsIntegration);
+        api.getRoot().addResource("books").addMethod("GET", getWidgetsIntegration);
     }
 }
