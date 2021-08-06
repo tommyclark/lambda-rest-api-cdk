@@ -22,8 +22,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Gradle
-        run: ./resources/gradlew buildNativeLambda -p res
-ources
+        run: ./resources/gradlew buildNativeLambda -p resources
 
       - name: cdk deploy
         uses: youyo/aws-cdk-github-actions@v2
