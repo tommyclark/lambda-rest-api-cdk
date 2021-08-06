@@ -1,8 +1,11 @@
 package com.myorg;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import software.amazon.awscdk.core.Construct;
+import software.amazon.awscdk.services.apigateway.EndpointConfiguration;
+import software.amazon.awscdk.services.apigateway.EndpointType;
 import software.amazon.awscdk.services.apigateway.LambdaIntegration;
 import software.amazon.awscdk.services.apigateway.Resource;
 import software.amazon.awscdk.services.apigateway.RestApi;
@@ -31,6 +34,7 @@ public class MicronautService extends Construct {
 
         RestApi api = RestApi.Builder.create(this, "Widgets-API")
                 .restApiName("Widget Service").description("This service services widgets.")
+                .endpointConfiguration(EndpointConfiguration.builder().types(Arrays.asList(EndpointType.REGIONAL)).build())
                 .build();
 
         LambdaIntegration getWidgetsIntegration = LambdaIntegration.Builder.create(handler)
