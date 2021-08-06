@@ -4,11 +4,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import software.amazon.awscdk.core.Construct;
+import software.amazon.awscdk.services.apigateway.AuthorizationType;
 import software.amazon.awscdk.services.apigateway.EndpointConfiguration;
 import software.amazon.awscdk.services.apigateway.EndpointType;
 import software.amazon.awscdk.services.apigateway.LambdaIntegration;
+import software.amazon.awscdk.services.apigateway.MethodOptions;
 import software.amazon.awscdk.services.apigateway.Resource;
 import software.amazon.awscdk.services.apigateway.RestApi;
+import software.amazon.awscdk.services.apigateway.RestApiProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
 import software.amazon.awscdk.services.lambda.Runtime;
@@ -32,10 +35,15 @@ public class MicronautService extends Construct {
 
         bucket.grantReadWrite(handler);
 
-        RestApi api = RestApi.Builder.create(this, "Widgets-API")
+        RestApiProps apiGatewayProps = RestApiProps.builder()
                 .restApiName("Widget Service").description("This service services widgets.")
                 .endpointConfiguration(EndpointConfiguration.builder().types(Arrays.asList(EndpointType.REGIONAL)).build())
+                .defaultMethodOptions(MethodOptions.builder()
+                        .authorizationType(AuthorizationType.NONE)
+                        .build())
                 .build();
+
+        RestApi api = new RestApi(this, "Widgets-API", apiGatewayProps);
 
         LambdaIntegration getWidgetsIntegration = LambdaIntegration.Builder.create(handler)
                 .requestTemplates(new HashMap<String, String>() {{
